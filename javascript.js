@@ -1,7 +1,9 @@
 let symbol = "X";
 let gameEnd = false;
+let moveCount = 0;
 for (let i = 1; i <= 9; i++) {
     document.getElementById(i.toString()).addEventListener("click", function () {
+        moveCount++;
         if (this.innerHTML === "" && !gameEnd) {
             this.innerHTML = symbol;
             this.classList.add(symbol.toLowerCase());
@@ -14,6 +16,8 @@ for (let i = 1; i <= 9; i++) {
             else {
                 symbol = "X";
             }
+            
+            checkTie();
         }
     });
 }
@@ -40,6 +44,14 @@ function checkWin() {
                 alert(symbol + " wins!");
             }, 250);
         }
+    }
+}
+function checkTie() {
+    if (moveCount === 9) {
+        gameEnd = true;
+        setTimeout(function () {
+            alert("It's a tie, nobody wins!");
+        }, 250);
     }
 }
 document.getElementById("reset").addEventListener(
